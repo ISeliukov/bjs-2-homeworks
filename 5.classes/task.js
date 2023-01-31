@@ -7,11 +7,18 @@ class PrintEditionItem {
         this.type = null;
     }
     fix() {
-        this._state *= 1.5;
-        if(this._state > 100) this._state = 100;
+        this.state = 1.5 * this._state;
     }
     set state(stat) {
-        this._state = stat;
+        if(stat === 0) {
+            this._state = 0;
+        }
+        else if(stat > 100) {
+            this._state = 100;
+        }
+        else {
+            this._state = stat;
+        }
     }
     get state() {
         return this._state;
@@ -65,7 +72,7 @@ class Library {
             this.books.push(book);
         }
     }
-    findBookBy(type, value) {
+/*    findBookBy(type, value) {
         for(let i = 0; i < this.books.length; i++) {
             let book = this.books[i];
             if(book[type] === value) {
@@ -73,8 +80,12 @@ class Library {
             }
         }
         return null;
+    }*/
+    findBookBy(type, value) {
+        const findResult = this.books.find((item) => item[type] === value);
+        return findResult || null;
     }
-    giveBookByName(bookName) {
+/*    giveBookByName(bookName) {
        let book = this.findBookBy("name", bookName);
        if(book != null) {
         let index = this.books.indexOf(book);
@@ -86,8 +97,12 @@ class Library {
        else {
         return null;
        }
+    }*/
+    giveBookByName(bookName) {
+        const findResult = this.books.find((item) => item.name === bookName);
+        this.books = this.books.filter((item) => item.name !== bookName);
+        return findResult || null;
     }
-
 }
 
 class Student {
